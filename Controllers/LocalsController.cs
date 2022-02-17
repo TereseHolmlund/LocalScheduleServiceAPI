@@ -1,0 +1,107 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using LocalScheduleServiceAPI.Models;
+
+namespace LocalScheduleServiceAPI.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class LocalsController : ControllerBase
+    {
+        private readonly LocalContext _context;
+
+        public LocalsController(LocalContext context)
+        {
+            _context = context;
+        }
+
+        // GET: api/Locals
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Local>>> GetLocals()
+        {
+            return await _context.Locals.ToListAsync();
+        }
+
+        // GET: api/Locals/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Local>> GetLocal(int id)
+        {
+            var local = await _context.Locals.FindAsync(id);
+
+            if (local == null)
+            {
+                return NotFound();
+            }
+
+            return local;
+        }
+
+        // PUT: api/Locals/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutLocal(int id, Local local)
+        {
+            if (id != local.Id)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(local).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!LocalExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
+        // POST: api/Locals
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<Local>> PostLocal(Local local)
+        {
+            _context.Locals.Add(local);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetLocal", new { id = local.Id }, local);
+        }
+
+        // DELETE: api/Locals/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteLocal(int id)
+        {
+            var local = await _context.Locals.FindAsync(id);
+            if (local == null)
+            {
+                return NotFound();
+            }
+
+            _context.Locals.Remove(local);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool LocalExists(int id)
+        {
+            return _context.Locals.Any(e => e.Id == id);
+        }
+    }
+}
