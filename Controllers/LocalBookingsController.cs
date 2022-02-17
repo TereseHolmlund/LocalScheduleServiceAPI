@@ -22,16 +22,16 @@ namespace LocalScheduleServiceAPI.Controllers
 
         // GET: api/LocalBookings
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LocalBooking>>> GetLocalBooking()
+        public async Task<ActionResult<IEnumerable<LocalBooking>>> GetLocalBookings()
         {
-            return await _context.LocalBooking.ToListAsync();
+            return await _context.LocalBookings.ToListAsync();
         }
 
         // GET: api/LocalBookings/5
         [HttpGet("{id}")]
         public async Task<ActionResult<LocalBooking>> GetLocalBooking(int id)
         {
-            var localBooking = await _context.LocalBooking.FindAsync(id);
+            var localBooking = await _context.LocalBookings.FindAsync(id);
 
             if (localBooking == null)
             {
@@ -77,7 +77,7 @@ namespace LocalScheduleServiceAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<LocalBooking>> PostLocalBooking(LocalBooking localBooking)
         {
-            _context.LocalBooking.Add(localBooking);
+            _context.LocalBookings.Add(localBooking);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetLocalBooking", new { id = localBooking.Id }, localBooking);
@@ -87,13 +87,13 @@ namespace LocalScheduleServiceAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLocalBooking(int id)
         {
-            var localBooking = await _context.LocalBooking.FindAsync(id);
+            var localBooking = await _context.LocalBookings.FindAsync(id);
             if (localBooking == null)
             {
                 return NotFound();
             }
 
-            _context.LocalBooking.Remove(localBooking);
+            _context.LocalBookings.Remove(localBooking);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -101,7 +101,7 @@ namespace LocalScheduleServiceAPI.Controllers
 
         private bool LocalBookingExists(int id)
         {
-            return _context.LocalBooking.Any(e => e.Id == id);
+            return _context.LocalBookings.Any(e => e.Id == id);
         }
     }
 }

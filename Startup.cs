@@ -2,6 +2,7 @@ using LocalScheduleServiceAPI.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,10 +34,8 @@ namespace LocalScheduleServiceAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LocalScheduleServiceAPI", Version = "v1" });
             });
 
-            //services.AddDbContext<DestinationContext>(options =>
-            //options.UseSqlServer(Configuration.GetConnectionString(DefaultConnection)));
-
-            services.AddEntityFrameworkSqlite().AddDbContext<LocalContext>();
+            services.AddDbContext<LocalContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -8,11 +8,15 @@ namespace LocalScheduleServiceAPI.Models
 {
     public class LocalContext : DbContext
     {
-        public DbSet<LocalBooking> LocalBooking { get; set; }
-        public DbSet<Local> Locals { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        public DbSet<LocalBooking> LocalBookings { get; set; }
+
+        public LocalContext(DbContextOptions options) : base (options)
         {
-            options.UseSqlite("Data Source=locals.db");
+
         }
+
+        public DbSet<LocalScheduleServiceAPI.Models.Local> Local { get; set; }
+      
+
     }
 }

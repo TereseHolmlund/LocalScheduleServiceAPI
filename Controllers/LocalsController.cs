@@ -22,16 +22,16 @@ namespace LocalScheduleServiceAPI.Controllers
 
         // GET: api/Locals
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Local>>> GetLocals()
+        public async Task<ActionResult<IEnumerable<Local>>> GetLocal()
         {
-            return await _context.Locals.ToListAsync();
+            return await _context.Local.ToListAsync();
         }
 
         // GET: api/Locals/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Local>> GetLocal(int id)
         {
-            var local = await _context.Locals.FindAsync(id);
+            var local = await _context.Local.FindAsync(id);
 
             if (local == null)
             {
@@ -77,7 +77,7 @@ namespace LocalScheduleServiceAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Local>> PostLocal(Local local)
         {
-            _context.Locals.Add(local);
+            _context.Local.Add(local);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetLocal", new { id = local.Id }, local);
@@ -87,13 +87,13 @@ namespace LocalScheduleServiceAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLocal(int id)
         {
-            var local = await _context.Locals.FindAsync(id);
+            var local = await _context.Local.FindAsync(id);
             if (local == null)
             {
                 return NotFound();
             }
 
-            _context.Locals.Remove(local);
+            _context.Local.Remove(local);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -101,7 +101,7 @@ namespace LocalScheduleServiceAPI.Controllers
 
         private bool LocalExists(int id)
         {
-            return _context.Locals.Any(e => e.Id == id);
+            return _context.Local.Any(e => e.Id == id);
         }
     }
 }
