@@ -2,7 +2,7 @@
 
 namespace LocalScheduleServiceAPI.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class update : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,8 +35,10 @@ namespace LocalScheduleServiceAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StartDateTime = table.Column<int>(type: "int", nullable: false),
                     EndDateTime = table.Column<int>(type: "int", nullable: false),
+                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LocalId = table.Column<int>(type: "int", nullable: false),
-                    EventId = table.Column<int>(type: "int", nullable: false)
+                    EventId = table.Column<int>(type: "int", nullable: false),
+                    HostId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

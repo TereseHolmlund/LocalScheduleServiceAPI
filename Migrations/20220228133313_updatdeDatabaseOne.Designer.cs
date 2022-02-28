@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LocalScheduleServiceAPI.Migrations
 {
     [DbContext(typeof(LocalContext))]
-    [Migration("20220217145525_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220228133313_updatdeDatabaseOne")]
+    partial class updatdeDatabaseOne
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -66,10 +66,16 @@ namespace LocalScheduleServiceAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("EndDateTime")
                         .HasColumnType("int");
 
                     b.Property<int>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HostId")
                         .HasColumnType("int");
 
                     b.Property<int>("LocalId")
